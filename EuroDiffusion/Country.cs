@@ -8,7 +8,7 @@ namespace coin_test.EuroDiffusion
     public class Country : ICountry
     {
         public string Name;
-        public Country(string name)
+        public Country(string name, IList<int> coordinates)
         {
             this.Name = name;
         }

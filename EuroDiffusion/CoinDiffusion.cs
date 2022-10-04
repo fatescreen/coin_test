@@ -18,7 +18,7 @@ namespace coin_test.EuroDiffusion
 
             foreach (var item in countriesWithCoordinates)
             {
-                Countries.Add(new Country(item.Key));
+                Countries.Add(new Country(item.Key, item.Value));
             }
         }
 
