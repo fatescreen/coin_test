@@ -12,24 +12,39 @@ namespace coin_test.EuroDiffusion
     public class CaseRunner : BackgroundService
     {
         private ILogger<CaseRunner> Logger;
-        readonly ICoinDiffusion CoinDiffusion;
+        private ICoinDiffusion CoinDiffusion;
         public Dictionary<string, IList<int>> CountriesWithCoordinates;
         public IList<ICountry> Countries;
 
-        public CaseRunner(ICoinDiffusion coinDiffusion, ILogger<CaseRunner> logger)
+        public CaseRunner(ILogger<CaseRunner> logger)
         {
-            this.CoinDiffusion = coinDiffusion;
             this.Logger = logger;
             this.CountriesWithCoordinates= new Dictionary<string, IList<int>>();
         }
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            return DoWork(stoppingToken);
+            await DoWork(stoppingToken);
+            await SolveCase(stoppingToken);
+
+            Console.WriteLine(CountriesWithCoordinates.Keys.First());
         }
 
-        public async Task DoWork(CancellationToken cancellationToken)
+        public async Task SolveCase(CancellationToken cancellationToken)
         {
-            
+            try
+            {
+                this.CoinDiffusion = new CoinDiffusion(CountriesWithCoordinates);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError("Can't create coin diffusion case", e);
+            }
+
+            await Task.Delay(0);
+        }
+
+        public async Task<Dictionary<string, IList<int>>> DoWork(CancellationToken cancellationToken)
+        {
             while (true)
             {
                 try
@@ -42,7 +57,6 @@ namespace coin_test.EuroDiffusion
                         this.Logger.LogInformation("Countries count are less than 1");
                         break;
                     }
-                    this.CoinDiffusion.SetCountriesCount(countriesCount);
 
                     for (int i = 1; i <= countriesCount; i++)
                     {
@@ -74,14 +88,15 @@ namespace coin_test.EuroDiffusion
 
                         this.CountriesWithCoordinates.Add(countryName, coordinates);
                     }
+                    return CountriesWithCoordinates;
                 }
                 catch (Exception e)
                 {
-                    this.Logger.LogError("Wrong input", e);
+                    this.Logger.LogError("Wrong input", e);                    
                 }
-
-                await Task.Delay(0);
+                await Task.Delay(0);                
             }
+            return CountriesWithCoordinates;
         }
     }
 }

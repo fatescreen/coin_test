@@ -7,5 +7,10 @@ namespace coin_test.EuroDiffusion
 {
     public class Country : ICountry
     {
+        public string Name;
+        public Country(string name)
+        {
+            this.Name = name;
+        }
     }
 }

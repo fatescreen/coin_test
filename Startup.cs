@@ -28,16 +28,14 @@ namespace coin_test
             services.AddLogging();
 
             services.AddHostedService<CaseRunner>();
-            services.AddSingleton<ICoinDiffusion, CoinDiffusion>();
 
-            
 
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {           
+        {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -50,16 +48,7 @@ namespace coin_test
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
+            app.UseStaticFiles();            
         }
     }
 }
