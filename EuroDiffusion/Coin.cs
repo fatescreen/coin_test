@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace coin_test.EuroDiffusion
 {
-    public class Coin
+    public class Coin : ICoin
     {
-
+        public ICity CreatorCity;       
+        
+        
         public Coin (ICity creator)
         {
 
