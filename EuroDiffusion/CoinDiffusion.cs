@@ -9,11 +9,17 @@ namespace coin_test.EuroDiffusion
     {
         uint CountriesCount;
         public IList<ICountry> Countries;
-        public Dictionary<string, IList<int>> CountriesWithCoordinates { get; set; } = new Dictionary<string, IList<int>>();
+        private Dictionary<string, IList<int>> countriesWithCoordinate;
 
-        public CoinDiffusion(IList<ICountry> countries)
+        public CoinDiffusion(Dictionary<string, IList<int>> countriesWithCoordinate, IList<ICountry> countries)
         {
+            this.countriesWithCoordinate = countriesWithCoordinate;
             this.Countries = countries;
+
+            foreach (var item in countriesWithCoordinate)
+            {
+                this.Countries.Add(new Country(item.Key, item.Value));
+            }
         }
 
         public void SetCountriesCount(uint count)

@@ -7,7 +7,7 @@ namespace coin_test.EuroDiffusion
 {
     public class City : ICity
     {
-        public City()
+        public City(string countryName, int xCoordinate, int yCoordinate)
         {
 
         }

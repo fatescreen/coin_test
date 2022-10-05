@@ -30,7 +30,7 @@ namespace coin_test.EuroDiffusion
             {
                 for (int y = this.YL; y <= this.YH; y++)
                 {
-                    
+                    this.Cities.Add(new City(name, x, y));
                 }
             }
         }

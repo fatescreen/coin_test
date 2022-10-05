@@ -28,9 +28,6 @@ namespace coin_test
             services.AddLogging();
 
             services.AddHostedService<CaseRunner>();
-            services.AddScoped<ICoinDiffusion, CoinDiffusion>();
-            services.AddScoped<ICountry, Country>();
-            services.AddScoped<ICity, City>();
 
         }
 
