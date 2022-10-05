@@ -16,14 +16,15 @@ namespace coin_test.EuroDiffusion
         public Dictionary<string, IList<int>> CountriesWithCoordinates;
         public IList<ICountry> Countries;
 
-        public CaseRunner(ILogger<CaseRunner> logger)
+        public CaseRunner(ILogger<CaseRunner> logger, ICoinDiffusion coinDiffusion)
         {
+            this.CoinDiffusion = coinDiffusion;
             this.Logger = logger;
             this.CountriesWithCoordinates= new Dictionary<string, IList<int>>();
         }
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await DoWork(stoppingToken);
+            await ReadCase(stoppingToken);
             await SolveCase(stoppingToken);
 
             Console.WriteLine(CountriesWithCoordinates.Keys.First());
@@ -33,7 +34,7 @@ namespace coin_test.EuroDiffusion
         {
             try
             {
-                this.CoinDiffusion = new CoinDiffusion(CountriesWithCoordinates);
+                this.CoinDiffusion = new CoinDiffusion(this.Countries);
             }
             catch (Exception e)
             {
@@ -43,7 +44,7 @@ namespace coin_test.EuroDiffusion
             await Task.Delay(0);
         }
 
-        public async Task<Dictionary<string, IList<int>>> DoWork(CancellationToken cancellationToken)
+        public async Task<Dictionary<string, IList<int>>> ReadCase(CancellationToken cancellationToken)
         {
             while (true)
             {
