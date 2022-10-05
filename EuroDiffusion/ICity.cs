@@ -9,6 +9,6 @@ namespace coin_test.EuroDiffusion
     {
         public int XCoordinate { get; }
         public int YCoordinate { get; }
-        IList<ICity> Neighbors { get; set; }
+        public IList<ICity> Neighbors { get; set; }
     }
 }
