@@ -24,79 +24,74 @@ namespace coin_test.EuroDiffusion
         }
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await ReadCase(stoppingToken);
-            await SolveCase(stoppingToken);
+            this.CountriesWithCoordinates = ReadCase();
+            SolveCase();
 
             Console.WriteLine(CountriesWithCoordinates.Keys.First());
         }
 
-        public async Task SolveCase(CancellationToken cancellationToken)
+        public void SolveCase( )
         {
             try
             {
                 this.CoinDiffusion = new CoinDiffusion(this.CountriesWithCoordinates, this.Countries);
+                CoinDiffusion.SetCitiesNeighbors();
             }
             catch (Exception e)
             {
                 Logger.LogError("Can't create coin diffusion case", e);
-            }
-
-            await Task.Delay(0);
+            }            
         }
 
-        public async Task<Dictionary<string, IList<int>>> ReadCase(CancellationToken cancellationToken)
-        {
-            while (true)
+        public Dictionary<string, IList<int>> ReadCase()
+        {            
+            try
             {
-                try
+                Console.WriteLine($"Write countries count");
+                var countriesCount = uint.Parse(Console.ReadLine());
+                Console.Clear();
+                if (countriesCount <= 0)
                 {
-                    Console.WriteLine($"Write countries count");
-                    var countriesCount = uint.Parse(Console.ReadLine());
+                    this.Logger.LogInformation("Countries count are less than 1");                    
+                }
+
+                for (int i = 1; i <= countriesCount; i++)
+                {
+                    Console.WriteLine($"Country №{i} name");
+                    var countryName = Console.ReadLine();
                     Console.Clear();
-                    if (countriesCount <= 0)
-                    {
-                        this.Logger.LogInformation("Countries count are less than 1");
-                        break;
-                    }
 
-                    for (int i = 1; i <= countriesCount; i++)
-                    {
-                        Console.WriteLine($"Country №{i} name");
-                        var countryName = Console.ReadLine();
-                        Console.Clear();
+                    Console.WriteLine($"Enter \"{countryName}\" XL coordinate");
+                    var coordinateXL = int.Parse(Console.ReadLine());
+                    Console.Clear();
 
-                        Console.WriteLine($"Enter \"{countryName}\" XL coordinate");
-                        var coordinateXL = int.Parse(Console.ReadLine());
-                        Console.Clear();
+                    Console.WriteLine($"Enter \"{countryName}\" YL coordinate");
+                    var coordinateYL = int.Parse(Console.ReadLine());
+                    Console.Clear();
 
-                        Console.WriteLine($"Enter \"{countryName}\" YL coordinate");
-                        var coordinateYL = int.Parse(Console.ReadLine());
-                        Console.Clear();
+                    Console.WriteLine($"Enter \"{countryName}\" XH coordinate");
+                    var coordinateXH = int.Parse(Console.ReadLine());
+                    Console.Clear();
 
-                        Console.WriteLine($"Enter \"{countryName}\" XH coordinate");
-                        var coordinateXH = int.Parse(Console.ReadLine());
-                        Console.Clear();
+                    Console.WriteLine($"Enter \"{countryName}\" YH coordinate");
+                    var coordinateYH = int.Parse(Console.ReadLine());
+                    Console.Clear();
 
-                        Console.WriteLine($"Enter \"{countryName}\" YH coordinate");
-                        var coordinateYH = int.Parse(Console.ReadLine());
-                        Console.Clear();
+                    IList<int> coordinates = new List<int>().ToList<int>();
+                    coordinates.Add(coordinateXL);
+                    coordinates.Add(coordinateYL);
+                    coordinates.Add(coordinateXH);
+                    coordinates.Add(coordinateYH);
 
-                        IList<int> coordinates = new List<int>().ToList<int>();
-                        coordinates.Add(coordinateXL);
-                        coordinates.Add(coordinateYL);
-                        coordinates.Add(coordinateXH);
-                        coordinates.Add(coordinateYH);
-
-                        this.CountriesWithCoordinates.Add(countryName, coordinates);
-                    }
-                    return CountriesWithCoordinates;
+                    this.CountriesWithCoordinates.Add(countryName, coordinates);
                 }
-                catch (Exception e)
-                {
-                    this.Logger.LogError("Wrong input", e);                    
-                }
-                await Task.Delay(0);                
+                return CountriesWithCoordinates;
             }
+            catch (Exception e)
+            {
+                this.Logger.LogError("Wrong input", e);                    
+            }               
+            
             return CountriesWithCoordinates;
         }
     }

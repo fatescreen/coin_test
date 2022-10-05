@@ -8,5 +8,6 @@ namespace coin_test.EuroDiffusion
     public interface ICoinDiffusion
     {
         public void SetCountriesCount(uint count);
+        public void SetCitiesNeighbors();
     }
 }

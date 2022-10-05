@@ -29,19 +29,22 @@ namespace coin_test.EuroDiffusion
 
         public void SetCitiesNeighbors()
         {
-            IList<ICity> allCities = new List<ICity>();
+            List<ICity> allCities = new List<ICity>();
             foreach (var country in Countries)
             {
-                allCities.Concat(country.Cities);
+                allCities.AddRange(country.Cities);
             }
 
             foreach (var city in allCities)
             {
                 var neighbors = allCities.Where(c => 
                 {
-                    bool isNeighborOnX = ((c.XCoordinate - city.XCoordinate) == 1) || ((c.XCoordinate + city.XCoordinate) == 1);
-                    bool isNeighborOnY = ((c.YCoordinate - city.YCoordinate) == 1) || ((c.YCoordinate + city.YCoordinate) == 1);
-                    bool isNeigbor = (isNeighborOnX || isNeighborOnY);
+                    bool isNeighborOnX = ((c.XCoordinate - city.XCoordinate) == 1) ^ ((city.XCoordinate - c.XCoordinate) == 1);
+                    bool isNeighborOnY = ((c.YCoordinate - city.YCoordinate) == 1) ^ ((city.YCoordinate - c.YCoordinate) == 1);
+                    bool isSameCoordinateX = c.XCoordinate == city.XCoordinate;
+                    bool isSameCoordinateY = c.YCoordinate == city.YCoordinate;
+
+                    bool isNeigbor = (isNeighborOnX && isSameCoordinateY) ^ (isNeighborOnY && isSameCoordinateX);
 
                     return isNeigbor;
                 }).ToList();
