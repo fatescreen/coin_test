@@ -27,6 +27,28 @@ namespace coin_test.EuroDiffusion
             this.CountriesCount = count;
         }
 
+        public void SetCitiesNeighbors()
+        {
+            IList<ICity> allCities = new List<ICity>();
+            foreach (var country in Countries)
+            {
+                allCities.Concat(country.Cities);
+            }
+
+            foreach (var city in allCities)
+            {
+                var neighbors = allCities.Where(c => 
+                {
+                    bool isNeighborOnX = ((c.XCoordinate - city.XCoordinate) == 1) || ((c.XCoordinate + city.XCoordinate) == 1);
+                    bool isNeighborOnY = ((c.YCoordinate - city.YCoordinate) == 1) || ((c.YCoordinate + city.YCoordinate) == 1);
+                    bool isNeigbor = (isNeighborOnX || isNeighborOnY);
+
+                    return isNeigbor;
+                }).ToList();
+                city.Neighbors = neighbors;
+            }
+        }
+
 
     }
 }

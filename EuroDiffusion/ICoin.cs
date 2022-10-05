@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace coin_test.EuroDiffusion
 {
-    public interface ICountry
+    public interface ICoin
     {
-        public IList<ICity> Cities { get; set; }
     }
 }

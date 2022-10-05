@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace coin_test.EuroDiffusion
 {
-    public interface ICountry
+    public class Coin
     {
-        public IList<ICity> Cities { get; set; }
+
+        public Coin (ICity creator)
+        {
+
+        }
     }
 }

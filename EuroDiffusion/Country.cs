@@ -12,7 +12,7 @@ namespace coin_test.EuroDiffusion
         private readonly int XLIndex = 0, YLIndex = 1, XHIndex = 2, YHIndex = 3;
         public readonly int CountryWidth;
         public readonly int CountryHeight;
-        public IList<ICity> Cities;
+        public IList<ICity> Cities { get; set; }
 
         public Country(string name, IList<int> coordinates)
         {
