@@ -7,5 +7,6 @@ namespace coin_test.EuroDiffusion
 {
     public interface ICoin
     {
+        public string CreatorCountry { get; set; }
     }
 }

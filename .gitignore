@@ -2,7 +2,7 @@
 /bin/**
 /.vs/**
 
-
+*.sln
 *.suo
 *.user
 *.userosscache

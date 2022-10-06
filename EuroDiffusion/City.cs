@@ -26,7 +26,7 @@ namespace coin_test.EuroDiffusion
             this.XCoordinate = xCoordinate;
             this.YCoordinate = yCoordinate;
 
-            ICoin coin = new Coin(this);
+            ICoin coin = new Coin(countryName);
             Coins = Enumerable.Repeat(coin, initialCoinValue).ToList();
         }
 
