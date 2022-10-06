@@ -52,6 +52,14 @@ namespace coin_test.EuroDiffusion
             }
         }
 
+        public void MakeDiffusion()
+        {
+            foreach (var country in this.Countries)
+            {
+                country.MakeDiffusion();
+            }
+        }
+
 
     }
 }

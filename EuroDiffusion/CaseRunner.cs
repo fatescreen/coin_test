@@ -36,6 +36,7 @@ namespace coin_test.EuroDiffusion
             {
                 this.CoinDiffusion = new CoinDiffusion(this.CountriesWithCoordinates, this.Countries);
                 CoinDiffusion.SetCitiesNeighbors();
+                CoinDiffusion.MakeDiffusion();
             }
             catch (Exception e)
             {

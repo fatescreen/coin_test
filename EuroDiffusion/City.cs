@@ -28,7 +28,7 @@ namespace coin_test.EuroDiffusion
             Coins = Enumerable.Repeat(coin, initialCoinValue).ToList();
         }
 
-        public void MakeDiffusionToNeighborns()
+        public void MakeDiffusion()
         {            
             var coinsToTransport = Coins.Count() / dailyCoinDivisor;
 
@@ -37,8 +37,15 @@ namespace coin_test.EuroDiffusion
                 var randomTargetNeigborCity = this.Neighbors.ElementAt(random.Next(this.Neighbors.Count));
                 var randomCoin = this.Coins.ElementAt(random.Next(this.Coins.Count));
 
+                this.Coins.Remove(randomCoin);
+                randomTargetNeigborCity.AddCoin(randomCoin);
+            };
+        }
 
-            }
+        public IList<ICoin> AddCoin(ICoin coin)
+        {
+            this.Coins.Add(coin);
+            return this.Coins;
         }
     }
 }

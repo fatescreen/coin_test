@@ -8,5 +8,6 @@ namespace coin_test.EuroDiffusion
     public interface ICountry
     {
         public IList<ICity> Cities { get; set; }
+        public void MakeDiffusion();
     }
 }
