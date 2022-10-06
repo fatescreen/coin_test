@@ -36,7 +36,14 @@ namespace coin_test.EuroDiffusion
             {
                 this.CoinDiffusion = new CoinDiffusion(this.CountriesWithCoordinates, this.Countries);
                 CoinDiffusion.SetCitiesNeighbors();
-                CoinDiffusion.MakeDiffusion();
+                var dayOfDiffusion = 1;
+
+                while (CoinDiffusion.CheckIsComplete() == false)
+                {                    
+                    CoinDiffusion.MakeDiffusion(dayOfDiffusion);
+                    dayOfDiffusion += 1;
+                }                
+                
             }
             catch (Exception e)
             {

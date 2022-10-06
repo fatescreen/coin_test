@@ -10,9 +10,9 @@ namespace coin_test.EuroDiffusion
         public ICity CreatorCity;       
         
         
-        public Coin (ICity creator)
+        public Coin (ICity creatorCity)
         {
-
+            this.CreatorCity = creatorCity;
         }
     }
 }

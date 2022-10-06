@@ -13,7 +13,8 @@ namespace coin_test.EuroDiffusion
         public readonly int CountryWidth;
         public readonly int CountryHeight;
         public IList<ICity> Cities { get; set; }
-
+        public bool IsComplete { get; set; } = false;
+        public int DayWhenComplete { get; set; } = 0;
         public Country(string name, IList<int> coordinates)
         {
             Cities = new List<ICity>();

@@ -13,11 +13,12 @@ namespace coin_test.EuroDiffusion
         public int XCoordinate { get; private set; }
         public int YCoordinate { get; private set; }
         public IList<ICity> Neighbors { get; set; }
-        public int UniqueCoinsTypeAmmount = 0;
+        public int UniqueCoinsTypeAmmount { get; set; } = 0;
         
         IList<ICoin> Coins;
         public string CountryName;
-        public bool isComplete = false;
+        public bool IsComplete { get; set; } = false;
+        public int DayOfComplete { get; set; }
 
         public City(string countryName, int xCoordinate, int yCoordinate)
         {
@@ -50,12 +51,12 @@ namespace coin_test.EuroDiffusion
         }
 
         public int UniqueCoinsTypeCount() 
-        {
-            IList<ICoin> uniqueCoins = new List<ICoin>();
+        {            
+            this.UniqueCoinsTypeAmmount = this.Coins.Distinct().Count();
 
-            
-
-            return 1;
+            return UniqueCoinsTypeAmmount;
         }
+
+
     }
 }

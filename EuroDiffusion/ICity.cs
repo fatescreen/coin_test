@@ -12,5 +12,7 @@ namespace coin_test.EuroDiffusion
         public IList<ICity> Neighbors { get; set; }
         public IList<ICoin> AddCoin(ICoin coin);
         public void MakeDiffusion();
+        public int UniqueCoinsTypeAmmount { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

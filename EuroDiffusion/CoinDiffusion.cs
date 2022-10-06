@@ -10,6 +10,7 @@ namespace coin_test.EuroDiffusion
         uint CountriesAmount;
         public IList<ICountry> Countries;
         private Dictionary<string, IList<int>> countriesWithCoordinate;
+        public int DayOfDiffusion { get; set; } = 0;
 
         public CoinDiffusion(Dictionary<string, IList<int>> countriesWithCoordinate, IList<ICountry> countries)
         {
@@ -52,14 +53,57 @@ namespace coin_test.EuroDiffusion
             }
         }
 
-        public void MakeDiffusion()
+        public void MakeDiffusion(int dayOfDiffusion)
         {
+            this.DayOfDiffusion = dayOfDiffusion;
             foreach (var country in this.Countries)
             {
                 country.MakeDiffusion();
             }
         }
 
+        public bool CheckIsComplete()
+        {
+            bool isComplete = true;
+            var citiesAmmount = 0;
 
+            foreach (var country in this.Countries)
+            {
+                citiesAmmount += country.Cities.Count();
+            }
+
+            foreach (var country in this.Countries)
+            {
+                foreach (var city in country.Cities)
+                {
+                    if (city.UniqueCoinsTypeAmmount == citiesAmmount)
+                    {
+                        city.IsComplete = true;
+                    }
+                }
+            }
+
+            foreach (var country in this.Countries)
+            {
+                var isAllCitiesComplete = country.Cities.Where(c => c.IsComplete == true).Count() == country.Cities.Count();
+                if (isAllCitiesComplete)
+                {
+                    country.IsComplete = true;
+                    
+                    if (country.DayWhenComplete == 0)
+                    {
+                        country.DayWhenComplete = this.DayOfDiffusion;
+                    }
+                }
+            }
+
+
+            foreach (var country in this.Countries)
+            {
+                isComplete &= country.IsComplete;
+            }
+
+            return isComplete;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace coin_test.EuroDiffusion
     {
         public void SetCountriesCount(uint count);
         public void SetCitiesNeighbors();
-        public void MakeDiffusion();
+        public void MakeDiffusion(int dayOfDiffusion);
+        public bool CheckIsComplete();
     }
 }
