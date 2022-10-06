@@ -7,12 +7,14 @@ namespace coin_test.EuroDiffusion
 {
     public class Coin : ICoin
     {
-        public ICity CreatorCity;       
+        public ICity CreatorCity;
+        public string CreatorCountry;
         
         
         public Coin (ICity creatorCity)
         {
             this.CreatorCity = creatorCity;
+            this.CreatorCountry = creatorCity.CountryName;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace coin_test.EuroDiffusion
         public int UniqueCoinsTypeAmmount { get; set; } = 0;
         
         IList<ICoin> Coins;
-        public string CountryName;
+        public string CountryName { get; }
         public bool IsComplete { get; set; } = false;
         public int DayOfComplete { get; set; }
 
@@ -51,7 +51,7 @@ namespace coin_test.EuroDiffusion
         }
 
         public int UniqueCoinsTypeCount() 
-        {            
+        {
             this.UniqueCoinsTypeAmmount = this.Coins.Distinct().Count();
 
             return UniqueCoinsTypeAmmount;

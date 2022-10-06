@@ -14,5 +14,7 @@ namespace coin_test.EuroDiffusion
         public void MakeDiffusion();
         public int UniqueCoinsTypeAmmount { get; set; }
         public bool IsComplete { get; set; }
+        public string CountryName { get; }
+        public int UniqueCoinsTypeCount();
     }
 }
