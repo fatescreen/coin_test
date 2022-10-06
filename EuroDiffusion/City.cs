@@ -13,6 +13,7 @@ namespace coin_test.EuroDiffusion
         public int XCoordinate { get; private set; }
         public int YCoordinate { get; private set; }
         public IList<ICity> Neighbors { get; set; }
+        public int UniqueCoinsTypeAmmount = 0;
         
         IList<ICoin> Coins;
         public string CountryName;
@@ -46,6 +47,15 @@ namespace coin_test.EuroDiffusion
         {
             this.Coins.Add(coin);
             return this.Coins;
+        }
+
+        public int UniqueCoinsTypeCount() 
+        {
+            IList<ICoin> uniqueCoins = new List<ICoin>();
+
+            
+
+            return 1;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace coin_test.EuroDiffusion
 {
     public class CoinDiffusion : ICoinDiffusion
     {
-        uint CountriesCount;
+        uint CountriesAmount;
         public IList<ICountry> Countries;
         private Dictionary<string, IList<int>> countriesWithCoordinate;
 
@@ -22,9 +22,9 @@ namespace coin_test.EuroDiffusion
             }
         }
 
-        public void SetCountriesCount(uint count)
+        public void SetCountriesCount(uint amount)
         {
-            this.CountriesCount = count;
+            this.CountriesAmount = amount;
         }
 
         public void SetCitiesNeighbors()

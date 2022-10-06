@@ -48,15 +48,15 @@ namespace coin_test.EuroDiffusion
         {            
             try
             {
-                Console.WriteLine($"Write countries count");
-                var countriesCount = uint.Parse(Console.ReadLine());
+                Console.WriteLine($"Write countries amount");
+                var countriesAmount = uint.Parse(Console.ReadLine());
                 Console.Clear();
-                if (countriesCount <= 0)
+                if (countriesAmount <= 0)
                 {
-                    this.Logger.LogInformation("Countries count are less than 1");                    
+                    this.Logger.LogInformation("Countries amount are less than 1");                    
                 }
 
-                for (int i = 1; i <= countriesCount; i++)
+                for (int i = 1; i <= countriesAmount; i++)
                 {
                     Console.WriteLine($"Country №{i} name");
                     var countryName = Console.ReadLine();
