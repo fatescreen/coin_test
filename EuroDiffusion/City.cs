@@ -52,9 +52,9 @@ namespace coin_test.EuroDiffusion
 
         public int UniqueCoinsTypeCount() 
         {
-            this.UniqueCoinsTypeAmmount = this.Coins.Distinct().Count();
+            var uniqueCoins = this.Coins.Select(item => item.CreatorCountry).Distinct().Count();
 
-            return UniqueCoinsTypeAmmount;
+            return uniqueCoins;
         }
 
 
