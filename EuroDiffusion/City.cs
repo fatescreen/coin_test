@@ -58,6 +58,14 @@ namespace coin_test.EuroDiffusion
             return uniqueCoins;
         }
 
-
+        public bool CheckIsComplete(int countriesAmount)
+        {
+            if (this.UniqueCoinsTypeCount() == countriesAmount)
+            {
+                this.IsComplete = true;
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -53,13 +53,13 @@ namespace coin_test.EuroDiffusion
             }
         }
 
-        public void MakeDiffusion(int dayOfDiffusion)
-        {
-            this.DayOfDiffusion = dayOfDiffusion;
+        public void MakeDiffusion()
+        {            
             foreach (var country in this.Countries)
             {
                 country.MakeDiffusion();
             }
+            this.DayOfDiffusion += 1;
         }
 
         public bool CheckIsComplete()
@@ -68,25 +68,8 @@ namespace coin_test.EuroDiffusion
 
             foreach (var country in this.Countries)
             {
-                var isAllCitiesComplete = country.Cities.Where(c => c.IsComplete == true).Count() == country.Cities.Count();
-                if (isAllCitiesComplete)
-                {
-                    country.IsComplete = true;
-                    
-                    if (country.DayWhenComplete == 0)
-                    {
-                        country.DayWhenComplete = this.DayOfDiffusion;
-                    }
-                }
+                isComplete &= country.CheckIsComplete(this.Countries.Count());
             }
-
-            var completeCountriesAmount = this.Countries.Select(country => country.Cities.Select(city => city.UniqueCoinsTypeAmmount == this.Countries.Count())).Count();
-
-            if (completeCountriesAmount == this.Countries.Count())
-            {
-                return true;
-            }
-
 
             return isComplete;
         }

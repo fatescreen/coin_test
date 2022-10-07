@@ -11,5 +11,6 @@ namespace coin_test.EuroDiffusion
         public void MakeDiffusion();
         public bool IsComplete { get; set; }
         public int DayWhenComplete { get; set; }
+        public bool CheckIsComplete(int countriesAmount);
     }
 }

@@ -38,10 +38,34 @@ namespace coin_test.EuroDiffusion
 
         public void MakeDiffusion()
         {
+            var isCountryComplete = this.Cities.Where(city => city.IsComplete).Count() == this.Cities.Count();
+            var a = this.Cities.Select(c => c).Where(city => city.IsComplete);
+
+            this.IsComplete = isCountryComplete? true : this.IsComplete;
+
+            if (isCountryComplete) 
+            { 
+                this.IsComplete = true;
+                return;
+            };
+
             foreach (var city in this.Cities)
             {
                 city.MakeDiffusion();
+            }            
+        }
+
+        public bool CheckIsComplete(int countriesAmount)
+        {
+            var isComplete = true;
+
+            foreach (var city in this.Cities)
+            {
+                isComplete &= city.CheckIsComplete(countriesAmount);
             }
+
+            this.IsComplete = isComplete;
+            return isComplete;
         }
     }
 }

@@ -31,26 +31,24 @@ namespace coin_test.EuroDiffusion
         }
 
         public int SolveCase(Dictionary<string, IList<int>> countriesWithCoordinates)
-        {
-            var dayOfDiffusion = 1;
+        {            
             try
             {
                 this.CoinDiffusion = new CoinDiffusion(countriesWithCoordinates, this.Countries);
-                CoinDiffusion.SetCitiesNeighbors();
-                
+                this.CoinDiffusion.SetCitiesNeighbors();
 
-                while (CoinDiffusion.CheckIsComplete() == false)
-                {                    
-                    CoinDiffusion.MakeDiffusion(dayOfDiffusion);
-                    dayOfDiffusion += 1;
-                }                
-                
+                var a = !CoinDiffusion.CheckIsComplete();
+
+                while (!this.CoinDiffusion.CheckIsComplete())
+                {
+                    this.CoinDiffusion.MakeDiffusion();
+                }
             }
             catch (Exception e)
             {
                 Logger.LogError("Can't create coin diffusion case", e);
             }
-            return dayOfDiffusion;
+            return this.CoinDiffusion.DayOfDiffusion;
         }
 
         public Dictionary<string, IList<int>> ReadCase()
