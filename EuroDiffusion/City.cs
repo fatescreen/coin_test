@@ -42,6 +42,7 @@ namespace coin_test.EuroDiffusion
                 this.Coins.Remove(randomCoin);
                 randomTargetNeigborCity.AddCoin(randomCoin);
             };
+            this.UniqueCoinsTypeAmmount = UniqueCoinsTypeCount();
         }
 
         public IList<ICoin> AddCoin(ICoin coin)

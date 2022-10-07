@@ -25,18 +25,19 @@ namespace coin_test.EuroDiffusion
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             this.CountriesWithCoordinates = ReadCase();
-            SolveCase();
+            SolveCase(this.CountriesWithCoordinates);
 
             Console.WriteLine(CountriesWithCoordinates.Keys.First());
         }
 
-        public void SolveCase( )
+        public int SolveCase(Dictionary<string, IList<int>> countriesWithCoordinates)
         {
+            var dayOfDiffusion = 1;
             try
             {
-                this.CoinDiffusion = new CoinDiffusion(this.CountriesWithCoordinates, this.Countries);
+                this.CoinDiffusion = new CoinDiffusion(countriesWithCoordinates, this.Countries);
                 CoinDiffusion.SetCitiesNeighbors();
-                var dayOfDiffusion = 1;
+                
 
                 while (CoinDiffusion.CheckIsComplete() == false)
                 {                    
@@ -48,7 +49,8 @@ namespace coin_test.EuroDiffusion
             catch (Exception e)
             {
                 Logger.LogError("Can't create coin diffusion case", e);
-            }            
+            }
+            return dayOfDiffusion;
         }
 
         public Dictionary<string, IList<int>> ReadCase()

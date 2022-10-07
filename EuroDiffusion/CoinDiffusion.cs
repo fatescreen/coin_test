@@ -65,23 +65,6 @@ namespace coin_test.EuroDiffusion
         public bool CheckIsComplete()
         {
             bool isComplete = true;
-            var citiesAmmount = 0;
-
-            foreach (var country in this.Countries)
-            {
-                citiesAmmount += country.Cities.Count();
-            }
-
-            foreach (var country in this.Countries)
-            {
-                foreach (var city in country.Cities)
-                {
-                    if (city.UniqueCoinsTypeAmmount == citiesAmmount)
-                    {
-                        city.IsComplete = true;
-                    }
-                }
-            }
 
             foreach (var country in this.Countries)
             {
@@ -97,11 +80,13 @@ namespace coin_test.EuroDiffusion
                 }
             }
 
+            var completeCountriesAmount = this.Countries.Select(country => country.Cities.Select(city => city.UniqueCoinsTypeAmmount == this.Countries.Count())).Count();
 
-            foreach (var country in this.Countries)
+            if (completeCountriesAmount == this.Countries.Count())
             {
-                isComplete &= country.IsComplete;
+                return true;
             }
+
 
             return isComplete;
         }
