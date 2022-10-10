@@ -7,7 +7,7 @@ namespace coin_test.EuroDiffusion
 {
     public class Country : ICountry
     {
-        public string Name;
+        public string Name { get; set; }
         private int XL, YL, XH, YH;
         private readonly int XLIndex = 0, YLIndex = 1, XHIndex = 2, YHIndex = 3;
         public readonly int CountryWidth;

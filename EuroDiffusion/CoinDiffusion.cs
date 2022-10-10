@@ -8,7 +8,7 @@ namespace coin_test.EuroDiffusion
     public class CoinDiffusion : ICoinDiffusion
     {
         uint CountriesAmount;
-        public IList<ICountry> Countries;
+        public IList<ICountry> Countries { get; set; }
         private Dictionary<string, IList<int>> countriesWithCoordinate;
         public int DayOfDiffusion { get; set; } = 0;
 
@@ -56,7 +56,7 @@ namespace coin_test.EuroDiffusion
         public void MakeDiffusion()
         {            
             foreach (var country in this.Countries)
-            {
+            {                
                 country.MakeDiffusion();
             }
             this.DayOfDiffusion += 1;
@@ -69,6 +69,7 @@ namespace coin_test.EuroDiffusion
             foreach (var country in this.Countries)
             {
                 isComplete &= country.CheckIsComplete(this.Countries.Count());
+
             }
 
             return isComplete;

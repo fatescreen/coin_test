@@ -36,14 +36,34 @@ namespace coin_test.EuroDiffusion
         }
         protected async override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            ReadCases();
-            SolveCase(this.CountriesWithCoordinates);
-
-            Console.ReadLine();
+            DoWork(stoppingToken);
         }
 
-        public int SolveCase(Dictionary<string, IList<int>> countriesWithCoordinates)
+        public void DoWork(CancellationToken stoppingToken)
+        {
+            ReadCases();
+            foreach (var item in Cases)
+            {
+                var completeCountries = SolveCase(item);
+                CasePrinter(Cases.IndexOf(item), completeCountries);
+            }
+        }
+
+        public void CasePrinter(int caseIndex, Dictionary<string, int> completeCountries)
         {            
+            Console.WriteLine(String.Format($"{0} {1}", "Case Number", caseIndex.ToString()));
+
+            foreach (var item in completeCountries)
+            {
+                var line = String.Format($"\t{0}\t{1}", item.Key, item.Value);
+                Console.WriteLine(line);
+            }
+        }
+
+        public Dictionary<string, int> SolveCase(Dictionary<string, IList<int>> countriesWithCoordinates)
+        {
+            Dictionary<string, int> completeCountries = new Dictionary<string, int>();
+
             try
             {
                 this.CoinDiffusion = new CoinDiffusion(countriesWithCoordinates, this.Countries);
@@ -55,12 +75,17 @@ namespace coin_test.EuroDiffusion
                 {
                     this.CoinDiffusion.MakeDiffusion();
                 }
+
+                foreach (var country in this.CoinDiffusion.Countries)
+                {
+                    completeCountries.Add(country.Name, country.DayWhenComplete);
+                }
             }
             catch (Exception e)
             {
                 Logger.LogError("Can't create coin diffusion case", e);
             }
-            return this.CoinDiffusion.DayOfDiffusion;
+            return completeCountries;
         }
 
         public IList<Dictionary<string, IList<int>>> ReadCases()
