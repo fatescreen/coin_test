@@ -15,11 +15,17 @@ namespace coin_test.EuroDiffusion
         private const char wordsSeparator = ' ';
         private const string endOfFile = "0";
         private const string inputPath = "input.config";
+        private const int maxCountriesAmount = 20;
+        private const int minCountriesAmount = 0;
+        private const int maxCharactersInName = 25;
         private const int countryNameIndex = 0;
         private const int XLCoordinateIndex = 1;
         private const int YLCoordinateIndex = 2;
         private const int XHCoordinateIndex = 3;
         private const int YHCoordinateIndex = 4;
+        private const int minCoordinateValue = 1;
+        private const int maxCoordinateValue = 10;
+        
 
         private ILogger<CaseRunner> Logger;
         private ICoinDiffusion CoinDiffusion;
@@ -83,7 +89,7 @@ namespace coin_test.EuroDiffusion
             }
             catch (Exception e)
             {
-                Logger.LogError("Can't create coin diffusion case", e);
+                Logger.LogError($"Can't create {nameof(this.CoinDiffusion)}", e);
             }
             return completeCountries;
         }
@@ -97,12 +103,12 @@ namespace coin_test.EuroDiffusion
                 using (StreamReader reader = new StreamReader(inputPath))
                 {
                     string? line;
-                    int caseAmount = 0;
+                    int countriesAmount = 0;
                     bool isCaseAmount = false;
 
                     while ((line = reader.ReadLine()) != null)
                     {
-                        isCaseAmount = int.TryParse(line, out caseAmount);
+                        isCaseAmount = int.TryParse(line, out countriesAmount);
                         if (line == endOfFile) 
                         {
                             Cases.Add(countriesWithCoordinates);
@@ -111,7 +117,11 @@ namespace coin_test.EuroDiffusion
 
                         if (isCaseAmount) 
                         {
-                            if (countriesWithCoordinates.Count() > 0)
+                            if (countriesAmount < minCountriesAmount || countriesAmount > maxCountriesAmount)
+                            {
+                                throw new Exception("Invalid case amount");
+                            }
+                            if (countriesWithCoordinates.Count() > int.Parse(endOfFile))
                             {
                                 Cases.Add(countriesWithCoordinates);
                                 countriesWithCoordinates = new Dictionary<string, IList<int>>();
@@ -121,11 +131,22 @@ namespace coin_test.EuroDiffusion
 
                         var words = line.Split(wordsSeparator);
 
+                        if (words[countryNameIndex].Length > maxCharactersInName)
+                        {
+                            throw new Exception($"Country name at most {maxCharactersInName} characters");
+                        }
+
                         IList<int> coordinates = new List<int>();
                         coordinates.Add(int.Parse(words[XLCoordinateIndex]));
                         coordinates.Add(int.Parse(words[YLCoordinateIndex]));
                         coordinates.Add(int.Parse(words[XHCoordinateIndex]));
                         coordinates.Add(int.Parse(words[YHCoordinateIndex]));
+
+                        foreach (var coordinate in coordinates)
+                        {
+                            var isOutOfRange = (coordinate < minCoordinateValue) || (coordinate > maxCoordinateValue);
+                            if (isOutOfRange) { throw new Exception($"{nameof(coordinate)} out of range"); };
+                        }
 
                         countriesWithCoordinates.Add(words[countryNameIndex], coordinates);
                     }                  
