@@ -56,8 +56,11 @@ namespace coin_test.EuroDiffusion
         }
 
         public void CasePrinter(int caseIndex, Dictionary<string, int> completeCountries)
-        {            
+        {
+            var orderedDictionary = completeCountries.OrderBy(d => d.Key).ToDictionary(d => (d.Key, d.Value)).OrderBy(d => d.Value).ToDictionary(d => (d.Key, d.Value));
+
             Console.WriteLine(String.Format($"{0} {1}", "Case Number", caseIndex.ToString()));
+
 
             foreach (var item in completeCountries)
             {
